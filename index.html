@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Slider Radar Template</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      padding: 20px;
+    }
+    .question {
+      margin-bottom: 20px;
+    }
+    .value-display {
+      margin-left: 10px;
+      font-weight: bold;
+      font-size : 12px ;
+      color : #888 ;
+    }
+  </style>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+  <h1>開発用診断ページ</h1>
+  <h1>質問</h1>
+
+  <!-- 12質問 -->
+  <div id="questions"></div>
+
+  <h2>結果</h2>
+  <canvas id="chart" width="300" height="300"></canvas>
+
+  <script>
+    const count = 12;
+    const sliders = [];
+
+    const questionTexts = [
+  "なんかそれっぽい質問1",
+  "好きな色はどれくらい強い？",
+  "人生における炎の勢いは？",
+  "進みたい気持ちの強さは？",
+  "回転エネルギーありますか？",
+  "序の心を理解してますか？",
+  "根の深さを教えてください",
+  "脈のリズムは安定してる？",
+  "交わりのスキル値は？",
+  "和を乱さない自信ある？",
+  "透き通る心の度合いは？",
+  "究めたい気持ちの強さは？",
+];
+
+    const weights = [//重みづけ
+
+      [1,0,0,0,0,0,0,0,0,0,0,0],
+      // 質問2
+      [0,1,0,0,0,0,0,0,0,0,0,0],
+      // 質問3
+      [0,0,1,0,0,0,0,0,0,0,0,0],
+      [0,0,1,0,0,0,0,0,0,0,0,0],
+      [0,0,1,0,0,0,0,0,0,0,0,0],
+      [0,0,1,0,0,0,0,0,0,0,0,0],
+      [0,0,1,0,0,0,0,0,0,0,0,0],
+      [0,0,1,0,0,0,0,0,0,0,0,0],
+      [0,0,1,0,0,0,0,0,0,0,0,0],
+      [0,0,1,0,0,0,0,0,0,0,0,0],
+      // ... 好きに設定
+      // 質問12
+      [0,0,1,0,0,0,0,0,0,0,0,0],
+      [0,0,0,0,0,0,0,0,0,0,0,1]
+
+    ];
+
+    const qContainer = document.getElementById("questions");
+    for (let i = 1; i <= count; i++) {
+      const div = document.createElement("div");
+      div.className = "question";
+      div.innerHTML = `
+        <label for="q${i}">${questionTexts[i - 1]}</label><br>
+  <input type="range" id="q${i}" min="0" max="100" value="0" />
+  <span class="value-display" id="q${i}-val">0</span>
+`;
+      qContainer.appendChild(div);
+      sliders.push({ id: `q${i}`, val: `q${i}-val` });
+    }
+    function convertValues(rawValues) {//計算式
+        // 12軸の結果を準備
+      const result = Array(12).fill(0);
+
+      for (let i = 0; i < rawValues.length; i++) {
+        for (let j = 0; j < 12; j++) {
+          result[j] += rawValues[i] * weights[i][j];
+    }
+  }
+
+  // 必要なら0〜100にクリップ
+  return result.map(v => Math.min(100, v));
+    }
+
+    function getValues() {
+      return sliders.map(s => Number(document.getElementById(s.id).value));
+    }
+
+    function updateDisplays() {
+      sliders.forEach(s => {
+        const v = document.getElementById(s.id).value;
+        document.getElementById(s.val).textContent = v;
+      });
+    }
+
+    let ctx = document.getElementById("chart").getContext("2d");
+    let radarChart = new Chart(ctx, {
+      type: "radar",
+      data: {
+        labels:["翔", "想","炎", "進", "旋", "序", "根","脈", "交", "和", "透", "究"],
+        datasets: [
+          {
+            label: "",
+            data: getValues(),
+            fill: true,
+            borderWidth: 2
+          }
+        ]
+      },
+      options: {
+        scales: {
+          r: {
+            suggestedMin: 0,
+            suggestedMax: 100,
+
+            ticks : {
+              display : false
+            },
+
+            pointLabels : {
+              font: {
+                size : 30
+              }
+            }
+          }
+        }
+      }
+    });
+
+    function updateChart() {
+        const raw = getValues();                // スライダーの生値
+  const converted = convertValues(raw);   // レーダー用に変換
+  radarChart.data.datasets[0].data = converted;
+      radarChart.update();
+    }
+
+    sliders.forEach(s => {
+      document.getElementById(s.id).addEventListener("input", () => {
+    updateChart();
+    updateDisplays();
+  });
+});
+    updateDisplays();
+  </script>
+</body>
+</html>
