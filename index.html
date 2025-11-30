@@ -18,6 +18,23 @@
       font-size : 12px ;
       color : #888 ;
     }
+    input[type="range"]{
+      width : 580px;  /*横の長さ*/
+      height : 25px;  /*全体の高さ*/
+    }
+    input[type="range"]::-webkit-slider-runnable-track{
+      height: 10px;
+      background : #ccc ;
+      border-radius : 5px;
+    }
+    input[type="range"]::-webkit-slider-thumb {
+       -webkit-appearance: none;
+        width: 60px;          /* つまみの幅 */
+        height:0px;         /* つまみの高さ */
+        background: #444;     /* 色 */
+        border-radius: 50%;   /* まるい形 */
+        margin-top: -5px;     /* 軌道と位置合わせ */
+}
   </style>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
