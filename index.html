@@ -81,8 +81,14 @@ h1::after {
   transform: translateY(-2px);
 }
 
-#questions {
-  margin-bottom:400px;
+
+
+.notice {
+  text-align: center;
+  font-size: 14px;
+  color: #888;
+  padding: 8px 0;
+  margin: 80px 0 400px;
 }
 
 
@@ -246,6 +252,10 @@ h1::after {
   <!-- 12質問 -->
    <br>
   <div id="questions"></div>
+  <div class="notice">
+  ここから先に結果があります。
+</div>
+
   <div class="result-area">
   <h2>結果</h2>
   <canvas id="chart" width="300" height="300"></canvas>
