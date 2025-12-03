@@ -65,28 +65,17 @@ h1::after {
 #top4 {
   display: flex;
   justify-content: center;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 8px;
+  gap: 12px;
 }
 
 .top-card {
-  width: 60px;
-  height: 60px;
-  font-size: 1.6rem;
-  margin: 4px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border-radius: 12px;
+  padding: 8px 16px;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 0 8px rgba(0,0,0,0.05);
+  font-size: 25px;
 }
 
-@media (max-width: 600px) {
-  #top4 {
-    flex-direction: row; /* スマホでも横並び維持 */
-    flex-wrap: wrap;
-    scale: 0.75;
-  }
 
 .top-card:hover {
   transform: translateY(-2px);
@@ -228,21 +217,10 @@ h1::after {
   margin-right: auto;
   border-radius: 16px;
   box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+  box-sizing: border-box; 
 }
 
 
-
-#top4 {
-  margin: 30px auto;
-  padding: 28px;
-  width: 100%;  /* これに変える。もしくは削除 */
-  max-width: 360px; /* 必要ならこんな制限だけつける */
-  border-radius: 16px;
-  box-shadow: 0 0 14px rgba(0,0,0,0.05);
-  text-align: center;
-  font-size: 1.2rem;
-  line-height: 1.8;
-}
 
 
 .desc-text {
