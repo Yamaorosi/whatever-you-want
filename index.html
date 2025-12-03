@@ -62,24 +62,20 @@ h1::after {
         background: #444;     /* 色 */
         border-radius: 50%;   /* まるい形 */
         margin-top: -5px;     /* 軌道と位置合わせ */}
-
-.top-card {
-  width: 60px;
-  height: 60px;
-  font-size: 1.6rem;
-  margin: 4px;
+#top4 {
   display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap; /* 改行させたくないなら */
   justify-content: center;
-  align-items: center;
-  border-radius: 12px;
+
 }
 
-@media (max-width: 600px) {
-  #top4 {
-    flex-direction: row; /* スマホでも横並び維持 */
-    flex-wrap: wrap;
-    scale: 0.75;
-  }
+.top-card {
+ padding: 8px 16px;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 0 8px rgba(0,0,0,0.05);
+  font-size: 20px;
 
 .top-card:hover {
   transform: translateY(-2px);
@@ -224,20 +220,6 @@ h1::after {
 }
 
 
-
-#top4 {
-  margin: 30px auto;
-  padding: 28px;
-  width: fit-content;
-  border-radius: 16px;
-  box-shadow: 0 0 14px rgba(0,0,0,0.05);
-  text-align: center;
-  font-size: 1.2rem;
-  line-height: 1.8;
-}
-
-
-
 .desc-text {
   font-size: 15px;
   line-height: 1.9;
@@ -265,6 +247,7 @@ h1::after {
   <h2>結果</h2>
   <canvas id="chart" width="300" height="300"></canvas>
   <div id ="top4"></div>
+
   <div id="detail"></div>
   <div class="desc"></div>
   </div>
@@ -970,8 +953,3 @@ function toggleDetail(el) {
   </script>
 </body>
 </html>
-
-
-
-
-
