@@ -64,18 +64,29 @@ h1::after {
         margin-top: -5px;     /* 軌道と位置合わせ */}
 #top4 {
   display: flex;
-  flex-direction: row;
-  flex-wrap: nowrap; /* 改行させたくないなら */
+  flex-direction: row; /* ←これで横並び */
   justify-content: center;
-
+  flex-wrap: nowrap; /* ←折り返し防止 */
+  gap: 8px;
 }
 
 .top-card {
- padding: 8px 16px;
-  background: #fff;
-  border-radius: 8px;
-  box-shadow: 0 0 8px rgba(0,0,0,0.05);
-  font-size: 20px;
+  font-family: 'Noto Serif JP', serif;  /*  */
+  font-size: 34px;
+  font-weight: 500;
+  letter-spacing: 0.08em;   /* これだけで空気変わる */
+  padding: 6px 17px;
+  border-radius: 10px;
+
+  background: #fcfcfc;
+  border: 1px solid #e9e9e9; /* 影より令和 */
+  transition: transform 0.2s ease;
+}
+@media (max-width: 600px) {
+  #top4 {
+    flex-direction: row; /* スマホでも横並び維持 */
+    flex-wrap: wrap;
+  }
 
 .top-card:hover {
   transform: translateY(-2px);
@@ -220,6 +231,18 @@ h1::after {
 }
 
 
+
+#top4 {
+  margin: 30px auto;   /* これだけで真ん中に来る */
+  padding: 28px;
+  width: fit-content;  /* 必要な分だけの横幅にする */
+  border-radius: 16px;
+  box-shadow: 0 0 14px rgba(0,0,0,0.05);
+  text-align: center;
+  font-size: 1.2rem;
+  line-height: 1.8;
+}
+
 .desc-text {
   font-size: 15px;
   line-height: 1.9;
@@ -247,7 +270,6 @@ h1::after {
   <h2>結果</h2>
   <canvas id="chart" width="300" height="300"></canvas>
   <div id ="top4"></div>
-
   <div id="detail"></div>
   <div class="desc"></div>
   </div>
